@@ -2,12 +2,27 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
+  const navigate = useNavigate();
 
+  const logoutUser = () => {
+    navigate('/login');
+
+    // fetch('/api/login/logout')
+    // .then((data) => data.json())
+    // .then((parsed) => {
+    //   if (parsed.loggedout === true) navigate('/login');
+    //   else window.alert('Error logging out, please try again.');
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    //   window.alert('Error logging out, please try again.');
+    // });
+  };
     
     return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">Digi-Deck</a>
+        <button className="btn btn-ghost normal-case text-xl" onClick={() => {navigate('/home')}}>Digi-Deck</button>
       </div>
       <div className="flex-none gap-2">
         <div className="dropdown dropdown-end">
@@ -17,9 +32,9 @@ const Nav = () => {
             </div>
           </label>
           <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-            <li><a>Profile</a></li>
-            <li><a href="/collections">Collections</a></li>
-            <li><a>Logout</a></li>
+            <li><button>Profile</button></li>
+            <li><button onClick={() => {navigate('/collections')}}>Collections</button></li>
+            <li><button onClick={logoutUser} >Logout</button></li>
           </ul>
         </div>
       </div>

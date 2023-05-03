@@ -4,13 +4,13 @@ import Nav from "./Nav.jsx";
 
 export default function Home() {
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     fetch('/api/isloggedin')
     .then((data) => data.json())
     .then((parsed) => {
       console.log(parsed)
-      if (parsed.authenticated) {
+      if (!parsed.authenticated) {
         window.alert('You are not logged in!');
         navigate('/login');
       };
