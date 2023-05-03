@@ -3,6 +3,7 @@ import Card from './Card.jsx'
 import Nav from './Nav.jsx';
 
 export default function Deck(props) {
+  
   const cards = [];
   for (let i = 0; i < 20; i++) {
     cards.push(<Card />);

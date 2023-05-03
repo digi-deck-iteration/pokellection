@@ -9,7 +9,8 @@ export default function Home() {
     fetch('/api/isloggedin')
     .then((data) => data.json())
     .then((parsed) => {
-      if (!parsed.loggedin) {
+      console.log(parsed)
+      if (parsed.authenticated) {
         window.alert('You are not logged in!');
         navigate('/login');
       };

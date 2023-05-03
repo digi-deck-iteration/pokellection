@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Card(props) {
+
     return(
     <div className="h-auto w-[300px] m-5 flex flex-col justify-center">
       <img className="p-3 btn w-auto h-auto" src="https://tcg.pokemon.com/assets/img/parents-guide/about/en-us/SM11_55.jpg"></img>
@@ -30,6 +31,9 @@ export default function Card(props) {
 
       </div>
     </div>
+
+
+      
     )
 }
 
