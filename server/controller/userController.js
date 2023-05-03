@@ -1,6 +1,10 @@
 const User = require('../models/userModel');
+const gitHubUser = require('../models/gitHubModel');
 const db = require('../models/pokemon_model');
+const oAuthSessionModel = require('../models/oAuthSessionModel')
+require('dotenv').config();
 const bcrypt = require('bcrypt');
+
 
 const userController = {};
 
@@ -17,6 +21,7 @@ userController.createUser = async (req, res, next) => {
       password: hash,
     });
     const ssid = newUser._id.toString();
+    res.locals.ssid = ssid;
 
     // create a new user in POSTSQL server
     db.query(
@@ -34,19 +39,27 @@ userController.createUser = async (req, res, next) => {
   }
 };
 
+userController.cookieCreator = async (req, res, next) => {
+  res.cookie('cookie', res.locals.ssid, {
+    expires: new Date(Date.now() + 900000),
+    httpOnly: true,
+    sameSite: 'strict',
+  })
+
+  await oAuthSessionModel.create({ cookieId: res.locals.ssid, createdAt: Date.now()})
+  return next();
+};
+
 userController.getUser = (req, res, next) => {
-  //const { username } = req.body;
-  console.log('before user find one');
+  console.log(req);
+  const { username, password } = req.body;
   console.log('req body: ', req.body);
-  User.findOne({ username: req.body.username }) /*, (err, result) => {*/
+  User.findOne({ username: username }) /*, (err, result) => {*/
     .then(async (results) => {
-      console.log(results);
-      const passwordMatch = await bcrypt.compare(
-        req.body.password,
-        results.password
-      );
-      console.log('PASSWORD MATCH: ', passwordMatch);
-      res.locals.truthy = passwordMatch;
+      const passwordMatch = await bcrypt.compare(password, results.password);
+      res.locals.login = passwordMatch;
+      console.log(results)
+      res.locals.ssid = results._id;
       return next();
     })
     .catch((err) => {
@@ -54,7 +67,7 @@ userController.getUser = (req, res, next) => {
       const errObj = {
         log: 'AN ERROR IN THE usercontroller.getuser',
         status: 400,
-        message: { err: 'chill' },
+        message: { err: 'AN ERROR IN THE usercontroller.getuser' },
       };
       return next(errObj);
     });

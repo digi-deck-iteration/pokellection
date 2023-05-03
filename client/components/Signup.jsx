@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 
 
@@ -5,6 +6,7 @@ const Signup = () => {
 const [ username, setUsername ] = useState('')
 const [ password, setPassword ] = useState('')
 const [ submitted, setSubmit ] = useState(false)
+const navigate = useNavigate();
 
 
 
@@ -21,9 +23,30 @@ const newUserSubmit = (e) => {
     e.preventDefault();
     if (username === '' || password === '') {
         alert("Please fill out all of the fields");
-    } else {
-      setSubmit(true);
-    }
+        return;
+    } 
+    
+    fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username, password })
+    })
+    .then((data) => data.json())
+    .then((parsed) => {
+      console.log(parsed);
+      if (parsed.created) {
+        setSubmit(true);
+        navigate('/home');
+      } else {
+        window.alert('Signup error');
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      window.alert('Signup error');
+    });
 }
 
 const successMessage = () => {
@@ -62,4 +85,3 @@ return (
 )}
 
 export default Signup;
-    
