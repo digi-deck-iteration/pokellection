@@ -5,6 +5,7 @@ import Nav from "./Nav.jsx";
 export default function Home() {
   const navigate = useNavigate();
   
+  
   useEffect(() => {
     fetch('/api/isloggedin')
     .then((data) => data.json())

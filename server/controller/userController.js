@@ -46,8 +46,8 @@ userController.cookieCreator = async (req, res, next) => {
     sameSite: 'strict',
   })
 
-  oAuthSessionModel.create({ cookieId: res.locals.ssid, createdAt: Date.now()})
-  next()
+  await oAuthSessionModel.create({ cookieId: res.locals.ssid, createdAt: Date.now()})
+  return next();
 };
 
 userController.getUser = (req, res, next) => {

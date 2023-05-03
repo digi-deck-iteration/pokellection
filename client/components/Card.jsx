@@ -4,12 +4,22 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Card(props) {
+    
+  // <Card cid={card.id} 
+  // cdate={card.tcgplayer_updated_at} 
+  // curl={card.tcgplayer_url} 
+  // 
+  // cprices={card.tcgplayer_prices}
+  // {props.cprices.?}
+  // cname={card.name} 
+  // cimage={card.image_url}/>
+  // src={props.cimage}
 
     return(
     <div className="h-auto w-[300px] m-5 flex flex-col justify-center">
       <img className="p-3 btn w-auto h-auto" src="https://tcg.pokemon.com/assets/img/parents-guide/about/en-us/SM11_55.jpg"></img>
       
-      <div className="stats shadow">
+      <div className="stats shadow hover:opacity-50">
   
         <div className="stat">
           <div className="stat-title text-xs">Price</div>
