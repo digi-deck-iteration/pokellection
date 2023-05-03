@@ -13,8 +13,7 @@ app.use(express.json());
 // });
 
 // serves client request for a card
-app.post(
-  '/getPokemon',
+app.post('/getPokemon',
   APIController.getData,
   APIController.pokemonAPIQuery,
   (req, res) => {
@@ -33,10 +32,14 @@ app.get('/hello', (req, res) => {
   res.status(200).send('hello I am a response');
 });
 
+
+
 app.post("/signup", userController.createUser, (req, res) => {
-  console.log('IS THISW ROKING')
+  console.log('IS THIS WORKING')
   res.status(200).send(res.locals.newUser);
 })
+
+
 
 app.post("/login", userController.getUser, (req, res) => {
   res.status(200).json(res.locals.truthy);

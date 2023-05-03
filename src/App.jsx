@@ -12,13 +12,11 @@ export default function App(props) {
     const password = useRef(null)
     const [isVisible, setIsVisible] = useState(false);
     function storeUser(){
-        console.log(newUsername.current.value)
-        console.log(newPassword.current.value)
+        console.log('newUsername current value', newUsername.current.value)
+        console.log('new Password current value', newPassword.current.value)
         fetch('/signup', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 username: newUsername.current.value,
                 password: newPassword.current.value

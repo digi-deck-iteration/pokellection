@@ -4,26 +4,41 @@ const SALT_WORK_FACTOR = 10;
 
 const userController = {};
 
-userController.createUser = (req, res, next) => {
-    const { username } = req.body;
-    let { password } = req.body;
-    bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
-        bcrypt.hash(password, salt, (err, hash) => {
-            User.create({username:username, password:hash})
-            .then(data => {
-               res.locals.newUser = data;
-               return next(); 
-            })
-            .catch(err => {
-                const errObj = {
-                            log: 'Error occurred in user.create',
-                            status: 400,
-                            message: 'Error occurred'
-                        };
-                return next(errObj);
-            })
-        })
-    })
+userController.createUser = async (req, res, next) => {
+    const { username, password } = req.body;
+    const hash = await bcrypt.hash(password, SALT_WORK_FACTOR);
+
+    console.log('req.body', req.body);
+    console.log('username', username);
+    await console.log('hash', hash);
+
+    User.create({username: username, password: hash});
+
+    try {
+        res.locals.newUser = data;
+        console.log('data', data);
+        return next(); 
+    } catch (err){
+        const errObj = {
+            log: 'Error occurred in user.create',
+            status: 400,
+            message: 'Error occurred in user.create'
+        };
+        return next(errObj);
+    }
+    // .then(data => {
+    //     res.locals.newUser = data;
+    //     console.log('data', data);
+    //     return next(); 
+    // })
+    // .catch(err => {
+    //             const errObj = {
+    //                         log: 'Error occurred in user.create',
+    //                         status: 400,
+    //                         message: 'Error occurred'
+    //                     };
+    //             return next(errObj);
+    // })
 }
 
 userController.getUser = (req, res, next) => {
