@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Deck from "./components/Deck.jsx";
 import Collections from "./components/Collections.jsx";
 import Home from "./components/Home.jsx";
+import Signup from "./components/Signup.jsx";
+import Login from "./components/Login.jsx"
 import './styles.css'
 
 const router = createBrowserRouter([
@@ -25,11 +27,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <div>signup</div>
+    element: <Signup />
   },
   {
     path: "/login",
-    element: <div>Login</div>
+    element: <Login />
   },
   {
     element: <div>Not found</div>
