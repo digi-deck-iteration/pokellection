@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Card from "./components/Card.jsx";
+import Deck from "./components/Deck.jsx";
 import Collections from "./components/Collections.jsx";
+import Home from "./components/Home.jsx";
 import './styles.css'
 
 const router = createBrowserRouter([
@@ -12,14 +13,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <div>Home</div>
+    element: <Home />
   },
   {
-    path: "/card",
-    element: <Card />
+    path: "/deck",
+    element: <Deck />
   },
   {
-    path: "/profile",
+    path: "/collections",
     element: <Collections />
   },
   {
@@ -30,6 +31,9 @@ const router = createBrowserRouter([
     path: "/login",
     element: <div>Login</div>
   },
+  {
+    element: <div>Not found</div>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
