@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react';
 const Signup = () => {
 const [ username, setUsername ] = useState('')
 const [ password, setPassword ] = useState('')
-const [ loginUsername, setLoginUsername ] = useState('')
-const [ loginPassword, setLoginPassword ] = useState('')
 const [ submitted, setSubmit ] = useState(false)
 
 

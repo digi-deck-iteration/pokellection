@@ -1,14 +1,10 @@
-//component to create new collection or add to collection
-<div className="flex flex-col w-full lg:flex-row">
-  <div className="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div> 
-  <div className="divider lg:divider-horizontal">OR</div> 
-  <div className="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div>
-</div>
+import React, { useState, useEffect } from 'react';
+
+const Carousel = () => {
 
 
 
-
-//component display carousel of cards: https://daisyui.com/components/carousel/
+return (
 
 <div className="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box">
   <div className="carousel-item">
@@ -33,4 +29,12 @@
     <img src="/images/stock/photo-1601004890684-d8cbf643f5f2.jpg" className="rounded-box" />
   </div>
 </div>
+)};
 
+
+//useeffect dependency that checks the state of the carousel array and if there arte more things added then it keeps adding things to the return
+
+//empty
+//create an array of the search collection where we keep track of the collection
+//use a loop to render new divs as long as they havent submitted, submitted will be a true or false state, once they submit then it will refresh the page or return state to 0
+//
