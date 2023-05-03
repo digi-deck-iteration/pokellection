@@ -5,6 +5,7 @@ const PORT = 3000;
 const signupRouter = require('./routes/signupRouter')
 const pokemonRouter = require('./routes/pokemonRouter')
 const loginRouter = require('./routes/loginRouter')
+const catPokeRouter = require('./routes/catPokeRouter');
 require('dotenv').config()
 // app.use('/', express.static(path.join(__dirname,'')))
 app.use(express.json());
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use('/api/signup', signupRouter);
 app.use('/api/pokemon', pokemonRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/catRouter', catPokeRouter);
 
 
 
