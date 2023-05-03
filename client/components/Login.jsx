@@ -15,12 +15,33 @@ const passwordHandler = (e) => {
 }
 
 const newUserSubmit = (e) => {
-    e.preventDefault();
-    if (username === '' || password === '') {
-        alert("Please fill out all of the fields");
-    } else {
+  e.preventDefault();
+  if (username === '' || password === '') {
+      alert("Please fill out all of the fields");
+      return;
+  } 
+  
+  fetch("/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ username, password })
+  })
+  .then((data) => data.json())
+  .then((parsed) => {
+    console.log(parsed);
+    if (parsed === true) {
       setSubmit(true);
+      navigate('/home');
+    } else {
+      window.alert('Login error');
     }
+  })
+  .catch((err) => {
+    console.log(err);
+    window.alert('Login error');
+  });
 }
 
 const successMessage = () => {
