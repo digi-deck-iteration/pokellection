@@ -5,7 +5,6 @@ const oAuthSessionModel = require('../models/oAuthSessionModel')
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 
-
 const userController = {};
 
 userController.createUser = async (req, res, next) => {
