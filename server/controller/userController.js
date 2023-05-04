@@ -5,7 +5,6 @@ const oAuthSessionModel = require('../models/oAuthSessionModel')
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 
-
 const userController = {};
 
 userController.createUser = async (req, res, next) => {
@@ -40,26 +39,28 @@ userController.createUser = async (req, res, next) => {
 };
 
 userController.cookieCreator = async (req, res, next) => {
-  res.cookie('cookie', res.locals.ssid, {
-    expires: new Date(Date.now() + 900000),
+  console.log('Entering cookieCreator');
+  res.cookie('ssid', res.locals.ssid, {
+    // expires: new Date(Date.now() + 900000),
     httpOnly: true,
-    sameSite: 'strict',
-  })
-
-  await oAuthSessionModel.create({ cookieId: res.locals.ssid, createdAt: Date.now()})
+    // sameSite: 'strict',
+  });
+  console.log('Created cookie on response');
+  const returnedSession = await oAuthSessionModel.findOneAndUpdate({ cookieId: res.locals.ssid}, { cookieId: res.locals.ssid }, { new: true, upsert: true });
+  console.log("Created Session: ", returnedSession);
   return next();
 };
 
 userController.getUser = (req, res, next) => {
-  console.log(req);
+  console.log('Hit getUser router');
   const { username, password } = req.body;
   console.log('req body: ', req.body);
   User.findOne({ username: username }) /*, (err, result) => {*/
     .then(async (results) => {
       const passwordMatch = await bcrypt.compare(password, results.password);
       res.locals.login = passwordMatch;
-      console.log(results)
-      res.locals.ssid = results._id;
+      res.locals.ssid = results._id.toString();
+      console.log(res.locals.login, res.locals.ssid);
       return next();
     })
     .catch((err) => {
