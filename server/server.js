@@ -9,6 +9,9 @@ const oAuthRouter = require('./routes/oAuthRouter');
 const uploadRouter = require('./routes/uploadRouter');
 const searchRouter = require('./routes/searchRouter');
 const catPokeRouter = require('./routes/catPokeRouter');
+const signupRouter = require('./routes/signupRouter');
+const pokemonRouter = require('./routes/pokemonRouter');
+const loginRouter = require('./routes/loginRouter');
 
 
 require('dotenv').config();

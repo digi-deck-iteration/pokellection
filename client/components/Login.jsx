@@ -35,7 +35,7 @@ const newUserSubmit = (e) => {
       setSubmit(true);
       navigate('/home');
     } else {
-      window.alert('Login error');
+      window.alert('Login error11111');
     }
   })
   .catch((err) => {
