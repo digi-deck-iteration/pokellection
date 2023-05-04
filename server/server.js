@@ -3,13 +3,25 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 3000;
 
+
+const signupRouter = require('./routes/signupRouter')
+const pokemonRouter = require('./routes/pokemonRouter')
+const loginRouter = require('./routes/loginRouter')
+const catPokeRouter = require('./routes/catPokeRouter');
+require('dotenv').config()
+
 const db = require('./models/db');
 const oAuthSessionModel = require('./models/oAuthSessionModel');
 const signupRouter = require('./routes/signupRouter');
 const pokemonRouter = require('./routes/pokemonRouter');
 const loginRouter = require('./routes/loginRouter');
 const oAuthRouter = require('./routes/oAuthRouter');
+const uploadRouter = require('./routes/uploadRouter');
+const searchRouter = require('./routes/searchRouter');
+
+
 require('dotenv').config();
+
 // app.use('/', express.static(path.join(__dirname,'')))
 app.use(express.json());
 app.use(cookieParser());
@@ -29,7 +41,12 @@ app.get('/api/isloggedin', (req, res) => {
 app.use('/api/signup', signupRouter);
 app.use('/api/pokemon', pokemonRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/catRouter', catPokeRouter);
+
 app.use('/api/oauth', oAuthRouter);
+app.use('/api/upload', uploadRouter)
+app.use('/api/search', )
+
 
 // CATCH ALL
 app.use('*', (req, res) => {
