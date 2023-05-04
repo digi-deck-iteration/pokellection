@@ -1,33 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import Card from './Card.jsx';
+import CardSmall from './CardSmall.jsx';
 
-const Carousel = (props) => {
+const Carousel = ({ carouselarray, removefromcarousel }) => {
+  const carouselItems = carouselarray.map((card) => {
+    return (
+      <div className="carousel-item">
+        <CardSmall cid={card.id_in_set} removefromcarousel={removefromcarousel} cimage={card.cimage} />
+      </div>
+    )
+  })
 
-const cards = props.carouselarray.slice();
+  // const [collectionArrray, setCollectionArray] = useState([])
 
-const carouselItems = cards.map((card) => {
-  <div className="carousel-item">
-    <Card carouselarray={props.carouselarray} cname={card.name} cimage={card.image_url} cid={card.id_in_set} cdate={card.tcgplayer_updated_at} curl={card.tcgplayer_url} cprices={card.tcgplayer_prices} />
-  </div> 
-})
+  // useEffect(() => {
+  //   const carouselItems = carouselarray.map((card) => {
+  //     return (
+  //       <div className="carousel-item">
+  //         <CardSmall cimage={card.cimage} />
+  //       </div>
+  //     )
 
-return (
-  <div className="m-10 carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
-    {carouselItems}
-    <div className="carousel-item">
-      <Card cname={'card.name'} cimage="https://images.pokemontcg.io/sm9/1_hires.png" cid="1" cdate="1" curl="https://images.pokemontcg.io/sm9/1_hires.png" cprices={{holofoil: "none" }} />
-    </div> 
-    <div className="carousel-item">
-      <Card cname={'card.name'} cimage="https://images.pokemontcg.io/sm9/1_hires.png" cid="1" cdate="1" curl="https://images.pokemontcg.io/sm9/1_hires.png" cprices={{holofoil: "none" }} />
-    </div> 
-    <div className="carousel-item">
-      <Card cname={'card.name'} cimage="https://images.pokemontcg.io/sm9/1_hires.png" cid="1" cdate="1" curl="https://images.pokemontcg.io/sm9/1_hires.png" cprices={{holofoil: "none" }} />
-    </div> 
-    <div className="carousel-item">
-      <Card cname={'card.name'} cimage="https://images.pokemontcg.io/sm9/1_hires.png" cid="1" cdate="1" curl="https://images.pokemontcg.io/sm9/1_hires.png" cprices={{holofoil: "none" }} />
-    </div> 
-  </div>
-)};
+  //   })
+  //   setCollectionArray(carouselItems)
+  // },[carouselarray])
+
+  return (
+    <div className="m-10 carousel carousel-center p-0 space-x-4 bg-neutral rounded-box">
+      {carouselItems}
+      <div className="carousel-item">
+        <CardSmall cimage="https://images.pokemontcg.io/sm9/1_hires.png" />
+      </div>
+    </div>
+  )
+};
 
 export default Carousel;
 //useeffect dependency that checks the state of the carousel array and if there arte more things added then it keeps adding things to the return

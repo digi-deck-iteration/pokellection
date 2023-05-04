@@ -11,7 +11,7 @@ collectionsController.addDeck = (req, res, next) => {
         const {userId} = req.body;
 
         for (let i = 0; i < ids.length; i++){
-            str = 'INSERT INTO 'deck table' VALUES ('${ids[i]}')';
+            str = "INSERT INTO 'deck table' VALUES ('${ids[i]}')";
 
         }
 

@@ -27,24 +27,15 @@ const Search = (props) => {
       console.log('Search Results: ', parsed);
       const cardsArray = parsed.map((card) => {
         console.log(card.tcgplayer_prices.holofoil);
-        if (!Object.hasOwn(card.tcgplayer_prices, 'holofoil')) card.tcgplayer_prices.holofoil = { market: 'no data', high: 'no data', low: 'no data' };
-        return <Card setcarouselarray={props.setcarouselarray} carouselarray={props.carouselarray} cname={card.name} cimage={card.image_url} cid={card.id_in_set} cdate={card.tcgplayer_updated_at} curl={card.tcgplayer_url} cprices={card.tcgplayer_prices} />
+        if (!Object.hasOwn(card.tcgplayer_prices, 'holofoil')) card.tcgplayer_prices.holofoil = { market: 'n/a', high: 'n/a', low: 'n/a' };
+        return <Card setcarouselarray={props.setcarouselarray} cname={card.name} cimage={card.image_url} cid={card.id_in_set} cdate={card.tcgplayer_updated_at} curl={card.tcgplayer_url} cprices={card.tcgplayer_prices} />
       });
       setSearchArray(cardsArray);
-      console.log(cardsArray);
-
-      // const cardsArray = searchResults.map((card) => {
-        // <Card cid={card.id_in_set} cdate={card.tcgplayer_updated_at} curl={card.tcgplayer_url} cprices={card.tcgplayer_prices} cname={card.name} cimage={card.image_url}/>
-      // });
-      // setSearchArray(cardsArray);
+      // console.log(cardsArray);
     })
     .catch((err) => console.log(err))
   }
 
-  const cards = [];
-  for (let i = 0; i < 20; i++) {
-    cards.push(<Card onClick={props.setcarouselarray}/>);
-  }
 
   return (
       <div>

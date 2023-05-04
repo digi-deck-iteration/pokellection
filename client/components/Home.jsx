@@ -8,11 +8,18 @@ export default function Home() {
   const navigate = useNavigate();
   const [ carouselArray, setCarouselArray ] = useState([]);
 
-  function addToCarousel(props) {
-    const newCarouselArray = carouselArray.slice();
-    newCarouselArray.push(props);
-    console.log(newCarouselArray);
-    setCarouselArray(newCarouselArray);
+  function addToCarousel(newProperties) {
+    console.log(carouselArray)
+    setCarouselArray([...carouselArray, newProperties]);
+  }
+
+  function removeFromCarousel(cid) {
+    const modifiedArray = [];
+    for (let i = 0; i < carouselArray.length; i++) {
+      if (cid === carouselArray[i].id_in_set) continue;
+      modifiedArray.push(carouselArray[i]);
+    }
+    setCarouselArray(modifiedArray);
   }
   
   useEffect(() => {
@@ -37,9 +44,9 @@ export default function Home() {
       <Nav />
       {/* <Search searchResults={searchResults} setSearchResults={setSearchResults}/> */}
       <div className="flex justify-center">
-        <Carousel carouselarray={carouselArray}/>
+        <Carousel carouselarray={carouselArray} removefromcarousel={removeFromCarousel}/>
       </div>
-      <Search setcarouselarray={addToCarousel} carouselarray={carouselArray}/>
+      <Search setcarouselarray={addToCarousel}/>
     </div>
   )
 }
