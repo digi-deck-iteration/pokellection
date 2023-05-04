@@ -5,18 +5,16 @@ const Nav = () => {
   const navigate = useNavigate();
 
   const logoutUser = () => {
-    navigate('/login');
-
-    // fetch('/api/login/logout')
-    // .then((data) => data.json())
-    // .then((parsed) => {
-    //   if (parsed.loggedout === true) navigate('/login');
-    //   else window.alert('Error logging out, please try again.');
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    //   window.alert('Error logging out, please try again.');
-    // });
+    fetch('/api/login/logout')
+    .then((data) => data.json())
+    .then((parsed) => {
+      if (parsed.loggedOut === true) navigate('/login');
+      else window.alert('Error logging out, please try again.');
+    })
+    .catch((err) => {
+      console.log(err);
+      window.alert('Error logging out, please try again.');
+    }); 
   };
     
     return (
