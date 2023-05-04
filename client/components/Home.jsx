@@ -34,7 +34,7 @@ export default function Home() {
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({ name: 'name', array: pokeIDs }),
-    }).then()
+    }).then();
   };
 
   useEffect(() => {
@@ -55,17 +55,18 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div className='flex flex-col '>
       <Nav />
       {/* <DropDown setCurrentDeck={setCurrentDeck} currentDeck={currentDeck} /> */}
       {/* <Search searchResults={searchResults} setSearchResults={setSearchResults}/> */}
-      <div className='flex justify-center'>
+      <div className='flex flex-col align-middle  justify-center'>
         <button
-          className='btn'
+          className='btn '
           onClick={() => addToCollectionHandler(carouselArray)}
         >
           Add Deck
         </button>
+
         <Carousel
           carouselArray={carouselArray}
           removefromcarousel={removeFromCarousel}
