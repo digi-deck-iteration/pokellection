@@ -56,10 +56,11 @@ collectionsController.getDeck = (req, res, next) => {
     try{
         console.log("Hit getDeck middleware")
         const {ssidCookie} = req.cookies.ssid
-
+        
         const text = "SELECT * FROM collections where user_id=$1"
         // const values = [`${ssidCookie}`];
         const values = [`6452de37ddb7a88560079c9a`];
+        console.log("About to query DB for decks");
         db.query(text, values)
         .then((data) => {
             console.log(data.rows);
