@@ -5,6 +5,7 @@ const collectionsController = require('../controller/collectionsController');
 
 router.post(
     '/', 
+    collectionsController.addCardsToDeck,
     collectionsController.addDeck, 
     (req,res) => {
         res.status(200).json(res.locals.data);
