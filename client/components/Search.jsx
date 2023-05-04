@@ -46,8 +46,9 @@ const Search = (props) => {
           <input id="searchTextInput" type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
           <button className="btn" onClick={searchPokemon}>Search</button>
         </div>
-
-        {cards}
+        <div className="flex justify-center">
+          {searchArray}
+        </div>
       </div>
   );
 }

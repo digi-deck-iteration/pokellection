@@ -4,12 +4,12 @@ module.exports = {
   getSearchResult: async (req, res, next) => {
     const { name } = req.body;
     console.log(name);
-    let queryStr = "SELECT * FROM pokemon WHERE name=$1";
-
-    db.query(queryStr, [name])
+    const queryStr = "SELECT * FROM pokemon WHERE name LIKE $1";
+    const values = [`%${name}%`];
+    db.query(queryStr, values)
       .then((result) => {
         res.locals.results = result.rows;
-        console.log(result);
+        console.log(result.rows);
         next();
       })
       .catch((err) => {
