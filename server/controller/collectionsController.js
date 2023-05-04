@@ -55,6 +55,7 @@ collectionsController.addCardsToDeck = (req, res, next) => {
 collectionsController.getDeck = (req, res, next) => {
   try {
     const { ssidCookie } = req.cookies.ssid;
+    const { name } = req.body
     const deck = [];
     //for given user's ssid, return every deck_id for user in the decks table
     str = 'SELECT ';

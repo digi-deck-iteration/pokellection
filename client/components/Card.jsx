@@ -24,9 +24,12 @@ export default function Card(props) {
     window.open(url, "_blank", "noreferrer");
   };
 
+  
+
+
   return(
     <div className="h-auto w-[300px] m-5 flex flex-col justify-center">
-      <img onClick={(e) => {props.setcarouselarray(props)}} className="p-3 btn w-auto h-auto" src={props.cimage}></img>
+      <img onClick={(e) => {props.addToCarousel(props)}} className="p-3 btn w-auto h-auto" src={props.cimage}></img>
       
       <div onClick={() => openInNewTab("https://shop.tcgplayer.com/price-guide/pokemon")} className="stats shadow hover:opacity-50">
 

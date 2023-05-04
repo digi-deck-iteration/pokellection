@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Nav from "./Nav.jsx";
-import Carousel from "./Carousel.jsx";
-import Search from "./Search.jsx";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Nav from './Nav.jsx';
+import Carousel from './Carousel.jsx';
+import Search from './Search.jsx';
+import DropDown from './DropDown.jsx';
 
 export default function Home() {
   const navigate = useNavigate();
-  const [ carouselArray, setCarouselArray ] = useState([]);
+  const [currentDeck, setCurrentDeck] = useState(['test1']);
+  const [carouselArray, setCarouselArray] = useState([]);
 
   function addToCarousel(newProperties) {
-    console.log(carouselArray)
-    setCarouselArray([...carouselArray, newProperties]);
+    setCarouselArray((curr) => [...curr, newProperties]);
   }
 
   function removeFromCarousel(cid) {
@@ -21,34 +22,56 @@ export default function Home() {
     }
     setCarouselArray(modifiedArray);
   }
-  
+
+  const addToCollectionHandler = (array) => {
+    console.log(array);
+    const pokeIDs = array.map((pokimon) => pokimon.cid);
+
+    fetch('/api/collections', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify({ name: 'name', array: pokeIDs }),
+    }).then()
+  };
+
   useEffect(() => {
     fetch('/api/isloggedin')
-    .then((data) => data.json())
-    .then((parsed) => {
-      console.log(parsed)
-      if (!parsed.authenticated) {
-        window.alert('You are not logged in!');
+      .then((data) => data.json())
+      .then((parsed) => {
+        // console.log(parsed)
+        if (!parsed.authenticated) {
+          window.alert('You are not logged in!');
+          navigate('/login');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        // window.alert('Could not veryify login!');
         navigate('/login');
-      };
-    })
-    .catch((err) => {
-      console.log(err);
-      window.alert('Could not veryify login!');
-      navigate('/login'); 
-    });
+      });
   }, []);
 
   return (
     <div>
       <Nav />
+      {/* <DropDown setCurrentDeck={setCurrentDeck} currentDeck={currentDeck} /> */}
       {/* <Search searchResults={searchResults} setSearchResults={setSearchResults}/> */}
-      <div className="flex justify-center">
-        <Carousel carouselarray={carouselArray} removefromcarousel={removeFromCarousel}/>
+      <div className='flex justify-center'>
+        <button
+          className='btn'
+          onClick={() => addToCollectionHandler(carouselArray)}
+        >
+          Add Deck
+        </button>
+        <Carousel
+          carouselArray={carouselArray}
+          removefromcarousel={removeFromCarousel}
+        />
       </div>
-      <Search setcarouselarray={addToCarousel}/>
+      <Search addToCarousel={addToCarousel} />
     </div>
-  )
+  );
 }
-
-

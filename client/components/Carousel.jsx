@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import CardSmall from './CardSmall.jsx';
 
-const Carousel = ({ carouselarray, removefromcarousel }) => {
-  const carouselItems = carouselarray.map((card) => {
-    return (
-      <div className="carousel-item">
-        <CardSmall cid={card.id_in_set} removefromcarousel={removefromcarousel} cimage={card.cimage} />
-      </div>
-    )
-  })
+const Carousel = ({ carouselArray, removefromcarousel }) => {
+  const [carouselRender, setCarouselArray] = useState([]);
+
+  useEffect(() => {
+    // console.log(carouselarray)
+    const array = [];
+    carouselArray.forEach((card) => {
+      array.push(
+        <div className='carousel-item'>
+          <CardSmall
+            cid={card.id_in_set}
+            removefromcarousel={removefromcarousel}
+            cimage={card.cimage}
+          />
+        </div>
+      );
+    });
+    setCarouselArray(array);
+  }, [carouselArray]);
 
   // const [collectionArrray, setCollectionArray] = useState([])
 
@@ -25,13 +36,11 @@ const Carousel = ({ carouselarray, removefromcarousel }) => {
   // },[carouselarray])
 
   return (
-    <div className="m-10 carousel carousel-center p-0 space-x-4 bg-neutral rounded-box">
-      {carouselItems}
-      <div className="carousel-item">
-        <CardSmall cimage="https://images.pokemontcg.io/sm9/1_hires.png" />
-      </div>
+    <div className='m-10 carousel carousel-center p-0 space-x-4 bg-neutral rounded-box'>
+      {carouselRender}
+      <div className='carousel-item'></div>
     </div>
-  )
+  );
 };
 
 export default Carousel;
