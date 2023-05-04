@@ -6,6 +6,7 @@
     // image_url TEXT
 
 import React, { useState } from "react";
+import Card from "./Card.jsx";
 
 const Search = (props) => {
   // const searchResults = [];

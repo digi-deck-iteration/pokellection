@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Nav from "./Nav.jsx";
+import Carousel from "./Carousel.jsx";
+import Search from "./Search.jsx";
 
 export default function Home() {
   const navigate = useNavigate();
