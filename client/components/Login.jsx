@@ -31,7 +31,7 @@ const newUserSubmit = (e) => {
   .then((data) => data.json())
   .then((parsed) => {
     console.log(parsed);
-    if (parsed === true) {
+    if (parsed.authorized === true) {
       setSubmit(true);
       navigate('/home');
     } else {

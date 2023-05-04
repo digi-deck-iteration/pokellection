@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Nav from "./Nav.jsx";
+import Carousel from "./Carousel.jsx";
+import Search from "./Search.jsx";
 
 export default function Home() {
   const navigate = useNavigate();
-  
+  const [ carouselArray, setCarouselArray ] = useState([]);
   
   useEffect(() => {
     fetch('/api/isloggedin')
@@ -26,6 +28,8 @@ export default function Home() {
   return (
     <div>
       <Nav />
+      <Carousel />
+      <Search setcarouselarray={setCarouselArray}/>
     </div>
   )
 }

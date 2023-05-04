@@ -2,18 +2,13 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 3000;
-
-
-const signupRouter = require('./routes/signupRouter')
-const pokemonRouter = require('./routes/pokemonRouter')
-const loginRouter = require('./routes/loginRouter')
-const catPokeRouter = require('./routes/catPokeRouter');
 require('dotenv').config()
 const db = require('./models/db');
 const oAuthSessionModel = require('./models/oAuthSessionModel');
 const oAuthRouter = require('./routes/oAuthRouter');
 const uploadRouter = require('./routes/uploadRouter');
 const searchRouter = require('./routes/searchRouter');
+const catPokeRouter = require('./routes/catPokeRouter');
 
 
 require('dotenv').config();
@@ -25,11 +20,11 @@ app.use(cookieParser());
 
 //AUTHENTICATION ROUTE
 app.get('/api/isloggedin', (req, res) => {
-  const { cookie } = req.cookies;
-  console.log("COOKIES", cookie)
-  oAuthSessionModel.findOne({ cookieId: cookie }).then((authenticatedUser) => {
+  const { ssid } = req.cookies;
+  console.log("SSID cookie", ssid)
+  oAuthSessionModel.findOne({ cookieId: ssid }).then((authenticatedUser) => {
     if (!authenticatedUser) res.status(200).json({ authenticated: false });
-    res.status(200).json({ authenticated: true });
+    else res.status(200).json({ authenticated: true });
   });
 });
 

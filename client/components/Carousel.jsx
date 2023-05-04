@@ -1,3 +1,9 @@
+import React from "react";
+
+const Carousel = () => <div>Carousel</div>;
+
+export default Carousel;
+
 //component to create new collection or add to collection
 {/* <div className="flex flex-col w-full lg:flex-row">
   <div className="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">content</div> 
