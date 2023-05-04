@@ -12,6 +12,7 @@ const catPokeRouter = require('./routes/catPokeRouter');
 const signupRouter = require('./routes/signupRouter');
 const pokemonRouter = require('./routes/pokemonRouter');
 const loginRouter = require('./routes/loginRouter');
+const collectionsRouter = require('./routes/collectionsRouter');
 
 
 require('dotenv').config();
@@ -37,8 +38,9 @@ app.use('/api/pokemon', pokemonRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/catRouter', catPokeRouter);
 app.use('/api/oauth', oAuthRouter);
-app.use('/api/upload', uploadRouter)
-app.use('/api/search', searchRouter )
+app.use('/api/upload', uploadRouter);
+app.use('/api/search', searchRouter );
+app.use('/api/collections', collectionsRouter);
 
 
 // CATCH ALL
