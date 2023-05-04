@@ -8,8 +8,6 @@ const [ password, setPassword ] = useState('')
 const [ submitted, setSubmit ] = useState(false)
 const navigate = useNavigate();
 
-
-
 const usernameHandler = (e) => {
     setUsername(e.target.value)
 }
@@ -17,7 +15,6 @@ const usernameHandler = (e) => {
 const passwordHandler = (e) => {
     setPassword(e.target.value)
 }
-
 
 const newUserSubmit = (e) => {
     e.preventDefault();
