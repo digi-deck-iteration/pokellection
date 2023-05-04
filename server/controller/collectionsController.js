@@ -55,13 +55,15 @@ collectionsController.addCardsToDeck = (req, res, next) => {
 collectionsController.getDeck = (req, res, next) => {
     try{
         console.log("Hit getDeck middleware")
-        const {ssidCookie} = req.cookies.ssid
+        const { ssid } = req.cookies;
         
         const text = "SELECT * FROM collections where user_id=$1"
-        // const values = [`${ssidCookie}`];
-        const values = [`6452de37ddb7a88560079c9a`];
+        const values = [ssid];
+        // console.log("6452de37ddb7a88560079c9a")
+        // const values = [`6452de37ddb7a88560079c9a`];
         console.log("About to query DB for decks");
-        db.query(text, values)
+
+        singleDBEntry.query(text, values)
         .then((data) => {
             console.log(data.rows);
             res.locals.data = data.rows;
@@ -83,9 +85,9 @@ collectionsController.getCards = (req, res, next) => {
         console.log("Hit getCards middleware")
         const deckId = req.body.deckId;
         const text = "SELECT * FROM pokemon p JOIN decks d ON d.pokemon_id=p.id_in_set WHERE d.deck_id=$1";
-        // const values = [deckId];
-        const values = ['1683231813771'];
-        db.query(text, values)
+        const values = [deckId];
+        // const values = ['1683231813771'];
+        singleDBEntry.query(text, values)
         .then((data) => {
             console.log(data.rows);
             res.locals.data = data.rows;
