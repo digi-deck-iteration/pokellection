@@ -5,7 +5,7 @@
     // name TEXT,
     // image_url TEXT
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./Card.jsx";
 
 const Search = (props) => {
@@ -79,6 +79,14 @@ const Search = (props) => {
 </div>
 <div className="flex flex-wrap gap-4 justify-center">
         {searchResultArr}
+      <div>
+        <div className="flex gap-4 justify-center">
+          <input id="searchTextInput" type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+          <button className="btn" onClick={searchPokemon}>Search</button>
+        </div>
+        <div className="flex justify-center">
+          {searchArray}
+        </div>
       </div>
 </div>
   )

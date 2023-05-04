@@ -9,7 +9,7 @@ const userController = {};
 
 userController.createUser = async (req, res, next) => {
   const { username } = req.body;
-  let { password } = req.body;
+  const { password } = req.body;
   const hash = await bcrypt.hash(password, 10);
   console.log('hash:', hash)
 
@@ -21,7 +21,7 @@ userController.createUser = async (req, res, next) => {
     });
     const ssid = newUser._id.toString();
     res.locals.ssid = ssid;
-
+    
     // create a new user in POSTSQL server
     db.query(
       'INSERT INTO users (username, password, ssid) VALUES ($1, $2, $3)',
