@@ -40,7 +40,7 @@ const newUserSubmit = (e) => {
   })
   .catch((err) => {
     console.log(err);
-    window.alert('Login error');
+    // window.alert('Login error');
   });
 }
 

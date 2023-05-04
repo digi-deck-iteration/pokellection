@@ -18,7 +18,7 @@ export default function Home() {
     const modifiedArray = [];
     for (let i = 0; i < carouselArray.length; i++) {
       if (cid === carouselArray[i].id_in_set) continue;
-      modifiedArray.push(carouselArray[i]);
+      else modifiedArray.push(carouselArray[i]);
     }
     setCarouselArray(modifiedArray);
   }
