@@ -53,25 +53,55 @@ collectionsController.addCardsToDeck = (req, res, next) => {
 
 //Select from the table
 collectionsController.getDeck = (req, res, next) => {
-  try {
-    const { ssidCookie } = req.cookies.ssid;
-    const { name } = req.body
-    const deck = [];
-    //for given user's ssid, return every deck_id for user in the decks table
-    str = 'SELECT ';
+    try{
+        console.log("Hit getDeck middleware")
+        const { ssid } = req.cookies;
+        
+        const text = "SELECT * FROM collections where user_id=$1"
+        const values = [ssid];
+        // console.log("6452de37ddb7a88560079c9a")
+        // const values = [`6452de37ddb7a88560079c9a`];
+        console.log("About to query DB for decks");
 
-    db.query;
+        singleDBEntry.query(text, values)
+        .then((data) => {
+            console.log(data.rows);
+            res.locals.data = data.rows;
+            return next();
+        })
+        .catch((err) => next(err));
+    } catch(err) {
+        const errorObj = {
+          log: 'Could not get Deck',
+          status: 400,
+          message: 'Uh oh! Could not get deck',
+        };
+        return next(errorObj);
+    }
+}
 
-    res.locals.deck = deck;
-    return next();
-  } catch (err) {
-    const errorObj = {
-      log: 'Could not get Deck',
-      status: 400,
-      message: 'Uh oh! Could not get deck',
-    };
-    return next(errorObj);
-  }
-};
+collectionsController.getCards = (req, res, next) => {
+    try{
+        console.log("Hit getCards middleware")
+        const deckId = req.body.deckId;
+        const text = "SELECT * FROM pokemon p JOIN decks d ON d.pokemon_id=p.id_in_set WHERE d.deck_id=$1";
+        const values = [deckId];
+        // const values = ['1683231813771'];
+        singleDBEntry.query(text, values)
+        .then((data) => {
+            console.log(data.rows);
+            res.locals.data = data.rows;
+            return next();
+        })
+        .catch((err) => next(err));
+    } catch(err) {
+        const errorObj = {
+          log: 'Could not get cards',
+          status: 400,
+          message: 'Uh oh! Could not get cards',
+        };
+        return next(errorObj);
+    }
+}
 
 module.exports = collectionsController;
