@@ -28,12 +28,9 @@ export default function Home() {
   return (
     <div>
       <Nav />
-<<<<<<< HEAD
-      <Search searchResults={searchResults} setSearchResults={setSearchResults}/>
-=======
+      {/* <Search searchResults={searchResults} setSearchResults={setSearchResults}/> */}
       <Carousel />
       <Search setcarouselarray={setCarouselArray}/>
->>>>>>> dev
     </div>
   )
 }
