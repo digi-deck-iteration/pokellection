@@ -17,11 +17,11 @@ app.use(cookieParser());
 
 //AUTHENTICATION ROUTE
 app.get('/api/isloggedin', (req, res) => {
-  const { cookie } = req.cookies;
-  console.log("COOKIES", cookie)
-  oAuthSessionModel.findOne({ cookieId: cookie }).then((authenticatedUser) => {
+  const { ssid } = req.cookies;
+  console.log("SSID cookie", ssid)
+  oAuthSessionModel.findOne({ cookieId: ssid }).then((authenticatedUser) => {
     if (!authenticatedUser) res.status(200).json({ authenticated: false });
-    res.status(200).json({ authenticated: true });
+    else res.status(200).json({ authenticated: true });
   });
 });
 
