@@ -2,12 +2,6 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 3000;
-
-
-const signupRouter = require('./routes/signupRouter')
-const pokemonRouter = require('./routes/pokemonRouter')
-const loginRouter = require('./routes/loginRouter')
-const catPokeRouter = require('./routes/catPokeRouter');
 require('dotenv').config()
 
 const db = require('./models/db');
@@ -18,6 +12,7 @@ const loginRouter = require('./routes/loginRouter');
 const oAuthRouter = require('./routes/oAuthRouter');
 const uploadRouter = require('./routes/uploadRouter');
 const searchRouter = require('./routes/searchRouter');
+const catPokeRouter = require('./routes/catPokeRouter');
 
 
 require('dotenv').config();
@@ -44,8 +39,8 @@ app.use('/api/login', loginRouter);
 app.use('/api/catRouter', catPokeRouter);
 
 app.use('/api/oauth', oAuthRouter);
-app.use('/api/upload', uploadRouter)
-app.use('/api/search', )
+app.use('/api/upload', uploadRouter);
+app.use('/api/search', searchRouter);
 
 
 // CATCH ALL

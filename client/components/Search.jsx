@@ -17,7 +17,8 @@ const Search = (props) => {
   const [ searchArray, setSearchArray ] = useState([])
   
   function searchPokemon() {
-    const nameToSearch = document.getElementById('searchTextInput');
+    const nameToSearch = document.getElementById('searchTextInput').value;
+    console.log(nameToSearch);
 
     fetch('/api/search', {
       method: "POST",
@@ -29,7 +30,7 @@ const Search = (props) => {
     .then((data) => data.json())
     .then((parsed) => {
       console.log('Search Results: ', parsed);
-      setSearchArray(searchArray.concat(parsed));
+      // setSearchArray(searchArray.concat(parsed));
     })
     .catch((err) => console.log(err))
   }
