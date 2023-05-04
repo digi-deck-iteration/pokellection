@@ -71,7 +71,17 @@ userController.getUser = (req, res, next) => {
         message: { err: 'AN ERROR IN THE usercontroller.getuser' },
       };
       return next(errObj);
-    });
+  });
+};
+
+userController.endSession = (req, res, next) => {
+  console.log('Hit logout router');
+  const result = oAuthSessionModel.findOneAndDelete({ cookieId: req.cookies.ssid })
+  .then((data) => {
+    console.log("Deleted session: ", data);
+    return next();
+  })
+  .catch((err) => next(err));
 };
 
 module.exports = userController;

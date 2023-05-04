@@ -1,36 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import Card from './Card.jsx';
 
-const Carousel = () => {
+const Carousel = (props) => {
 
-useEffect(() => {
+const cards = props.carouselarray.slice();
 
-
-});
+const carouselItems = cards.map((card) => {
+  <div className="carousel-item">
+    <Card carouselarray={props.carouselarray} cname={card.name} cimage={card.image_url} cid={card.id_in_set} cdate={card.tcgplayer_updated_at} curl={card.tcgplayer_url} cprices={card.tcgplayer_prices} />
+  </div> 
+})
 
 return (
-<div className="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box">
-  <div className="carousel-item">
-    <img src="/images/stock/photo-1559703248-dcaaec9fab78.jpg" className="rounded-box" />
-  </div> 
-  <div className="carousel-item">
-    <img src="/images/stock/photo-1565098772267-60af42b81ef2.jpg" className="rounded-box" />
-  </div> 
-  <div className="carousel-item">
-    <img src="/images/stock/photo-1572635148818-ef6fd45eb394.jpg" className="rounded-box" />
-  </div> 
-  <div className="carousel-item">
-    <img src="/images/stock/photo-1494253109108-2e30c049369b.jpg" className="rounded-box" />
-  </div> 
-  <div className="carousel-item">
-    <img src="/images/stock/photo-1550258987-190a2d41a8ba.jpg" className="rounded-box" />
-  </div> 
-  <div className="carousel-item">
-    <img src="/images/stock/photo-1559181567-c3190ca9959b.jpg" className="rounded-box" />
-  </div> 
-  <div className="carousel-item">
-    <img src="/images/stock/photo-1601004890684-d8cbf643f5f2.jpg" className="rounded-box" />
+  <div className="m-10 carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
+    {carouselItems}
+    <div className="carousel-item">
+      <Card cname={'card.name'} cimage="https://images.pokemontcg.io/sm9/1_hires.png" cid="1" cdate="1" curl="https://images.pokemontcg.io/sm9/1_hires.png" cprices={{holofoil: "none" }} />
+    </div> 
+    <div className="carousel-item">
+      <Card cname={'card.name'} cimage="https://images.pokemontcg.io/sm9/1_hires.png" cid="1" cdate="1" curl="https://images.pokemontcg.io/sm9/1_hires.png" cprices={{holofoil: "none" }} />
+    </div> 
+    <div className="carousel-item">
+      <Card cname={'card.name'} cimage="https://images.pokemontcg.io/sm9/1_hires.png" cid="1" cdate="1" curl="https://images.pokemontcg.io/sm9/1_hires.png" cprices={{holofoil: "none" }} />
+    </div> 
+    <div className="carousel-item">
+      <Card cname={'card.name'} cimage="https://images.pokemontcg.io/sm9/1_hires.png" cid="1" cdate="1" curl="https://images.pokemontcg.io/sm9/1_hires.png" cprices={{holofoil: "none" }} />
+    </div> 
   </div>
-</div>
 )};
 
 export default Carousel;
