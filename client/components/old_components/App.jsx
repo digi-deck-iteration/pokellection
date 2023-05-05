@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import MainContainer from './client/containers/mainContainer';
+import MainContainer from './containers/mainContainer';
 
 import './styles.css';
 
@@ -7,14 +7,13 @@ export default function App(props) {
     const newUsername = useRef(null)
     const newPassword = useRef(null)
 
-
     const username = useRef(null)
     const password = useRef(null)
     const [isVisible, setIsVisible] = useState(false);
     function storeUser(){
         console.log(newUsername.current.value)
         console.log(newPassword.current.value)
-        fetch('/signup', {
+        fetch('/api/signup', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

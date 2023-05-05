@@ -1,51 +1,54 @@
 const express = require('express');
-const path = require('path');
-const APIController = require('./controller/APIController');
+const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 3000;
-const userController = require('./controller/userController');
+require('dotenv').config()
+const db = require('./models/db');
+const oAuthSessionModel = require('./models/oAuthSessionModel');
+const oAuthRouter = require('./routes/oAuthRouter');
+const uploadRouter = require('./routes/uploadRouter');
+const searchRouter = require('./routes/searchRouter');
+const catPokeRouter = require('./routes/catPokeRouter');
+const signupRouter = require('./routes/signupRouter');
+const pokemonRouter = require('./routes/pokemonRouter');
+const loginRouter = require('./routes/loginRouter');
+const collectionsRouter = require('./routes/collectionsRouter');
+
+
+require('dotenv').config();
 
 // app.use('/', express.static(path.join(__dirname,'')))
 app.use(express.json());
+app.use(cookieParser());
 
-// app.get('/', APIController.call, APIController.instantiateTable, (req, res) => {
-//   return res.status(200).send('random');
-// });
 
-// serves client request for a card
-app.post(
-  '/getPokemon',
-  APIController.getData,
-  APIController.pokemonAPIQuery,
-  (req, res) => {
-    // if the SQL database does not have the result, then redirect
-    console.log('ending the getPoke middleware');
-    if (Object.hasOwn(res.locals, 'selectedPokemon')) {
-      return res.status(200).json(res.locals.selectedPokemon);
-    } else {
-      return res.status(404).redirect('/');
-    }
-  }
-);
-
-app.get('/hello', (req, res) => {
-  console.log('made a request');
-  res.status(200).send('hello I am a response');
+//AUTHENTICATION ROUTE
+app.get('/api/isloggedin', (req, res) => {
+  const { ssid } = req.cookies;
+  console.log("SSID cookie", ssid)
+  oAuthSessionModel.findOne({ cookieId: ssid }).then((authenticatedUser) => {
+    if (!authenticatedUser) res.status(200).json({ authenticated: false });
+    else res.status(200).json({ authenticated: true });
+  });
 });
 
-app.post("/signup", userController.createUser, (req, res) => {
-  console.log('IS THISW ROKING')
-  res.status(200).send(res.locals.newUser);
-})
+//ROUTERS
+app.use('/api/signup', signupRouter);
+app.use('/api/pokemon', pokemonRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/catRouter', catPokeRouter);
+app.use('/api/oauth', oAuthRouter);
+app.use('/api/upload', uploadRouter);
+app.use('/api/search', searchRouter );
+app.use('/api/collections', collectionsRouter);
 
-app.post("/login", userController.getUser, (req, res) => {
-  res.status(200).json(res.locals.truthy);
-})
 
+// CATCH ALL
 app.use('*', (req, res) => {
   res.sendStatus(404);
 });
 
+//GLOBAL ERROR HANDLER
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler hiiiiii caught unknown middleware error',
@@ -57,6 +60,7 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
+// SERVER
 app.listen(PORT, () => {
   console.log('listening on a port:', PORT);
 });

@@ -6,22 +6,120 @@ const db = require('../models/pokemon_model');
 
 const APIController = {};
 
+
 APIController.call = (req, res, next) => {
   fetch('https://api.pokemontcg.io/v2/cards/')
-    .then((data) => data.json())
-    .then((data) => {
-      res.locals.pokemonData = data;
-      return next();
-    })
-    .catch((err) => {
+  .then((response) => response.json())
+  .then((response) => {
+    for (let page = 0; page < 65; page++){
+      console.log('response at i', response.data[page].page);
+      // for (let i = 0; i < 250; i++ ){
+      //   //extract response[i]
+      //   //db.query it
+      // }
+    }
+
+    //iterate through response.page (65 objects)
+      const {
+        data: {
+          id,
+          name,
+          supertype,
+          subtypes,
+          hp,
+          types,
+          evolvesTo,
+          tcgplayer: {
+            prices: {
+              holofoil: {
+                low,
+                mid,
+                high,
+                market,
+                directLow
+              }
+          }},
+          images: {
+            small,
+            large
+          }
+        }
+      } = response;
+    
+    console.log('newly assigned data', response);
+  })
+  .then((data) => {
+    next();
+  })
+  .catch((err) => {
       const errorObj = {
         log: 'Pokemon data not fetched properly',
         status: 400,
         message: 'Uh oh! Your pokemon data was not fetched properly',
       };
       return next(errorObj);
-    });
+  })
 };
+
+// APIController.call = (req, res, next) => {
+
+  
+//   // fetch('https://api.pokemontcg.io/v2/cards/')
+//     // .then(
+//     // for (let i = 1; i < 2; i++){
+//         pokemon.card.where({ pageSize: 1, page: i })
+//         .then((data) => data.json())
+//         .then(data => {
+//           console.log(data);
+//             //iterate through array of objects
+//             for (let i = 0; i < 1; i++){
+//               const {
+//                 tcgplayer: {
+//                   url,
+//                   updatedAt,
+//                   prices: {
+//                     holofoil: {
+//                       low,
+//                       mid,
+//                       high,
+//                       market,
+//                       directLow
+//                     }
+//                   }
+//                 },
+//                 small: smallImageUrl, 
+//                 large: largeImageUrl,
+//                 id,
+//                 name,
+//                 supertype,
+//                 subtypes,
+//                 hp,
+//                 types,
+//                 evolvesTo
+//               } = data[i];
+//               res.locals.data = data[i]
+//               //populate tables with db.queries using INSERT statements
+//               // try{
+//               //   let str =
+//               //     'INSERT INTO table (VALUES'
+
+//               // } catch (err) {
+//               //   console.log('err in query:', err);
+//               // }
+//             }
+//       })
+//       .then(data =>{
+//         next();
+//       })
+//       .catch((err) => {
+//           const errorObj = {
+//             log: 'Pokemon data not fetched properly',
+//             status: 400,
+//             message: 'Uh oh! Your pokemon data was not fetched properly',
+//           };
+//           return next(errorObj);
+//       })
+// };
 
 APIController.instantiateTable = (req, res, next) => {
   const data = res.locals.pokemonData.data;
